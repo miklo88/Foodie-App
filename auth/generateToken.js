@@ -1,4 +1,4 @@
-const jwt = requrie("jsonwebtoken");
+const jwt = require("jsonwebtoken");
 const secrets = require("../config/secrets");
 
 function generateToken(user) {
