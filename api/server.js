@@ -4,8 +4,9 @@ const cors = require("cors");
 const helmet = require("helmet");
 
 // authenticate, routers will be brought in here.
-// chef router etc
-// auth router etc
+const authenticate = require("../auth/authenticate-middleware.js");
+const authRouter = require("../auth/auth-router.js");
+// recipes router
 
 const server = express();
 

@@ -5,7 +5,7 @@ const bcrypt = require("bcryptjs");
 
 // PASSING AN errorMESSAGE SO I DON"T HAVE TO RE-WRITE IT.
 const errorMessage = {
-  message: "Include a valid username/password in your request"
+  message: "Include a valid email/password in your request"
 };
 
 router.post("/register", async (req, res, next) => {
@@ -39,7 +39,7 @@ router.post("/login", async (req, res, next) => {
         .status(200)
         .json({ token, message: `welcome chef ${user.username}!` });
     } else {
-      return res.status(401).json(errorMessage);
+      return res.status(418).json(errorMessage);
     }
   } catch (err) {
     console.log(err);
