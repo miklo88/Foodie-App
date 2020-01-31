@@ -1,14 +1,14 @@
 const bcrypt = require("bcryptjs");
-const db = require("../data/dbConfig");
+const db = require("../database/dbConfig");
 
 function find() {
-  return db("users").select("id", "email");
+  return db("users").select("id", "firstName", "lastName");
 }
 
 function findBy(filter) {
   return db("users")
     .where(filter)
-    .select("id", "name", "email", "password");
+    .select("id", "firstName", "lastName", "email", "password");
 }
 
 function findById(id) {

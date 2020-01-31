@@ -26,8 +26,8 @@ router.post("/register", async (req, res, next) => {
 
 router.post("/login", async (req, res, next) => {
   try {
-    const { username, password } = req.body;
-    const user = await usersModel.findBy({ username }).first();
+    const { email, password } = req.body;
+    const user = await usersModel.findBy({ email }).first();
 
     const validPassword = await bcrypt.compare(password, user.password);
 
@@ -35,9 +35,10 @@ router.post("/login", async (req, res, next) => {
       const token = generateToken(user);
       console.log(token);
 
-      res
-        .status(200)
-        .json({ token, message: `welcome chef ${user.username}!` });
+      res.status(200).json({
+        token,
+        message: `welcome chef ${user.firstName}: ${user.lastName}!`
+      });
     } else {
       return res.status(418).json(errorMessage);
     }
