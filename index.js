@@ -1,5 +1,5 @@
 // heroku deployment. package json is already set up for it.
-// .env in root directory.
+// .env in root directory for deploying
 require("dotenv").config();
 
 const server = require("./api/server");
