@@ -16,7 +16,7 @@ exports.up = async knex => {
     tbl
       .integer("instructions_id")
       .notNullable()
-      .references("id")
+      .references("notes")
       .inTable("instructions");
   });
 
