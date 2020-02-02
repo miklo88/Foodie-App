@@ -8,10 +8,6 @@ exports.up = function(knex, Promise) {
       tbl.text("username");
       tbl.string("password").notNullable();
     })
-    .createTable("instructions", function(tbl) {
-      tbl.increments().primary();
-      tbl.text("notes");
-    })
     .createTable("recipes", function(tbl) {
       tbl.increments("recipe_id").primary();
       tbl.text("title").notNullable();
@@ -22,6 +18,10 @@ exports.up = function(knex, Promise) {
         .notNullable()
         .references("instructions_id")
         .inTable("instructions");
+    })
+    .createTable("instructions", function(tbl) {
+      tbl.increments().primary();
+      tbl.text("notes");
     })
     .createTable("users_recipes", function(tbl) {
       tbl
@@ -45,7 +45,7 @@ exports.up = function(knex, Promise) {
 exports.down = function(knex, Promise) {
   return knex.schema
     .dropTableIfExists("users_recipes")
-    .dropTableIfExists("recipes")
     .dropTableIfExists("instructions")
+    .dropTableIfExists("recipes")
     .dropTableIfExists("users");
 };

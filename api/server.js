@@ -3,16 +3,20 @@ const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
 
-// authenticate, routers will be brought in here.
-const authenticate = require("../auth/authenticate-middleware.js");
-const authRouter = require("../auth/auth-router.js");
-// recipes router
-
 const server = express();
 
 server.use(helmet());
 server.use(cors());
 server.use(express.json());
+
+// authenticate, routers will be brought in here.
+const authenticate = require("../auth/authenticate-middleware.js");
+const authRouter = require("../auth/auth-router.js");
+// const recipeRouter = require("../recipe/recipe-router.js")
+
+// ROUTERS BEING UTILIZED FROM IMPORTS.
+server.use("/users", usersRouter);
+// server.use("/recipes", recipesRouter);
 
 // server api GET
 server.get("/", (req, res) => {
