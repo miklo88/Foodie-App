@@ -14,8 +14,13 @@ router.get("/api/recipes", async (req, res, next) => {
     // get all recipes from the database
     // include instuctions
     const recipes = await db("recipes as a")
-      .leftJoin("instructions as s", "s.id", "a.instructions_id")
-      .select("a.id", "a.recipeTitle", "s.describe");
+      .leftJoin("instructions as s", "s.describe", "a.instructions_id")
+      .select(
+        "a.recipeTitle",
+        "a.mealType",
+        "a.ingredients",
+        "s.describe as describe"
+      );
 
     res.json(recipes);
   } catch (err) {
@@ -56,3 +61,5 @@ router.delete("/api/instructions/:id", async (req, res, next) => {
     next(err);
   }
 });
+
+module.exports = router;
