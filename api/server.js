@@ -6,17 +6,14 @@ const helmet = require("helmet");
 const server = express();
 
 //  AUTH RECIPE USER ROUTERS
-// const authenticate = require("../auth/authenticate-middleware.js");
-// const authRouter = require("../auth/auth-router.js");
-// const usersRouter = require("../users/users-router");
-// const recipeRouter = require("../recipe/recipe-router.js")
+const recipesRouter = require("../recipes/recipes-router.js");
 
 server.use(express.json());
 server.use(helmet());
 
 // ROUTERS BEING UTILIZED FROM IMPORTS.
 // server.use("/users", usersRouter);
-// server.use("/recipes", recipesRouter);
+server.use("/recipes", recipesRouter);
 
 // server api GET
 server.get("/", (req, res) => {
