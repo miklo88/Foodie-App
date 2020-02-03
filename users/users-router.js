@@ -1,7 +1,7 @@
 const router = require("express").Router();
-const usersModel = require("../users/users-model");
-const generateToken = require("./generateToken");
-const bcrypt = require("bcryptjs");
+// const usersModel = require("../users/users-model");
+// const generateToken = require("./generateToken");
+// const bcrypt = require("bcryptjs");
 
 router.get("/users", (req, res) => {
   res.status(200).json({
