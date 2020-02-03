@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const db = require("../database/dbConfig");
 
 router.get("/api/instructions", async (req, res, next) => {
   try {

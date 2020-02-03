@@ -13,7 +13,7 @@ server.use(helmet());
 
 // ROUTERS BEING UTILIZED FROM IMPORTS.
 // server.use("/users", usersRouter);
-server.use("/recipes", recipesRouter);
+server.use("/api/recipes", recipesRouter);
 
 // server api GET
 server.get("/", (req, res) => {
