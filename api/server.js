@@ -6,9 +6,9 @@ const helmet = require("helmet");
 const server = express();
 
 //  AUTH RECIPE USER ROUTERS
-const authenticate = require("../auth/authenticate-middleware.js");
-const authRouter = require("../auth/auth-router.js");
-const usersRouter = require("../users/users-router");
+// const authenticate = require("../auth/authenticate-middleware.js");
+// const authRouter = require("../auth/auth-router.js");
+// const usersRouter = require("../users/users-router");
 // const recipeRouter = require("../recipe/recipe-router.js")
 
 server.use(express.json());
