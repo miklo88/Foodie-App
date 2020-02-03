@@ -1,6 +1,5 @@
 // EXPRESS AND THE MIDDLWARE TRIO
 const express = require("express");
-const helmet = require("helmet");
 
 // EXPRESS MIDDLEWARE SERVER
 const server = express();
@@ -9,17 +8,15 @@ const server = express();
 const recipesRouter = require("../recipes/recipes-router.js");
 
 server.use(express.json());
-server.use(helmet());
-
-// ROUTERS BEING UTILIZED FROM IMPORTS.
-// server.use("/users", usersRouter);
-server.use("/api/recipes", recipesRouter);
 
 // server api GET
-server.get("/", (req, res) => {
+server.get("/", async (req, res) => {
   res.send("hola and welcome to carls api!");
 });
 // sneak JWT Token on line 14. pushing down res.send message.
+
+// ROUTERS BEING UTILIZED FROM IMPORTS.
+server.use("/api/recipes", recipesRouter);
 
 server.use((err, req, res, next) => {
   res.status(500).json({
