@@ -16,9 +16,9 @@ server.use("/users", usersRouter);
 server.use("/recipes", recipesRouter);
 
 // server api GET
-server.get("/", async (req, res) => {
-  res.send("hola and welcome to root API!");
-});
+// server.get("/", async (req, res) => {
+//   res.send("hola and welcome to root API!");
+// });
 
 // route for /api/recipes or /api/users paths
 // server.get("/api", (req, res) => {
@@ -26,8 +26,9 @@ server.get("/", async (req, res) => {
 // });
 
 server.use((err, req, res, next) => {
+  console.log("Error:", err);
   res.status(500).json({
-    message: "ay dio mio we have an error."
+    message: "didnt make it past the server.js."
   });
 });
 
