@@ -1,3 +1,4 @@
+const knex = require("knex");
 const db = require("../dbConfig");
 
 module.exports = {
@@ -5,10 +6,10 @@ module.exports = {
   findById,
   add,
   update,
-  delete
+  remove
 };
 
-function find() {
+function find(users) {
   return db("users");
 }
 
