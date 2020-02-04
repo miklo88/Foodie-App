@@ -1,49 +1,57 @@
 const bcrypt = require("bcryptjs");
 const express = require("express");
 const jwt = require("jsonwebtoken");
-// const restricted = require("../");
+const restricted = require("../../middleware/restricted");
 // const usersModel = require("../../database/helper_modules/users-module");
 const secrets = require("../../config/secrets");
 
 const router = express.Router();
 
-router.post("/login", (req, res) => {
-  let { email, password } = req.body;
+// CREATE NEW USER
+router.post("/register", async (req, res, next) => {
+  try {
+    const saved = await usersModel.add(req.body);
 
-  Users.findBy({ email })
-    .first()
-    .then(user => {
-      if (user && bcrypt.compareSync(password, user.password)) {
-        const token = generateToken(user); // new line
-
-        // the server needs to return the token to the client
-        // this doesn't happen automatically like it happens with cookies
-        res.status(200).json({
-          message: `Welcome ${user.firstName}!, have a token...`,
-          token // attach the token as part of the response
-        });
-      } else {
-        res.status(401).json({ message: "Invalid Credentials" });
-      }
-    })
-    .catch(error => {
-      res.status(500).json(error);
-    });
+    res.status(201).json(saved);
+  } catch (err) {
+    next(err);
+  }
 });
 
-function generateToken(user) {
-  const payload = {
-    subject: user.id, // sub in payload is what the token is about
-    username: user.username
-    // ...otherData
-  };
+// LOGIN
+router.post("/login", async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+    const user = await usersModel.findBy({ email }).first();
+    // since bcrypt hashes generate different results due to the salting,
+    // we rely on the magic internals to compare hashes (rather than doing
+    // it manulally by re-hashing and comparing)
+    const passwordValid = await bcrypt.compare(password, user.password);
 
-  const options = {
-    expiresIn: "1d" // show other available options in the library's documentation
-  };
+    if (user && passwordValid) {
+      const token = jwt.sign(
+        {
+          subject: user.id,
+          username: user.firstName
+        },
+        secrets.jwt,
+        {
+          expiresIn: "7d"
+        }
+      );
 
-  // extract the secret away so it can be required and used where needed
-  return jwt.sign(payload, secrets.jwtSecret, options); // this method is synchronous
-}
+      res.status(200).json({
+        message: `Welcome ${user.firstName}!`,
+        token: token
+      });
+    } else {
+      res.status(401).json({
+        message: "Invalid Credentials"
+      });
+    }
+  } catch (err) {
+    next(err);
+  }
+});
 
 module.exports = router;
