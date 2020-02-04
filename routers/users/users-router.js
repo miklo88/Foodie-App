@@ -1,5 +1,7 @@
 const express = require("express");
 
+const users = require("../../database/helper_models/user-model");
+
 const router = express.Router();
 
 // const db = require("../../database/dbConfig");
