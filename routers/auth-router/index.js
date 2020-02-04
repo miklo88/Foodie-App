@@ -2,7 +2,7 @@ const bcrypt = require("bcryptjs");
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const restricted = require("../../middleware/restricted");
-// const usersModel = require("../../database/helper_modules/users-module");
+const usersModel = require("../../database/helper_modules/users-model");
 const secrets = require("../../config/secrets");
 
 const router = express.Router();
@@ -49,6 +49,17 @@ router.post("/login", async (req, res, next) => {
         message: "Invalid Credentials"
       });
     }
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get("/protected", restricted(), async (req, res, next) => {
+  try {
+    res.json({
+      message: "You are authorized",
+      userId: req.userId
+    });
   } catch (err) {
     next(err);
   }
