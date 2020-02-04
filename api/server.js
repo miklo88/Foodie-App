@@ -21,9 +21,9 @@ server.get("/", async (req, res) => {
 });
 
 // route for /api/recipes or /api/users paths
-server.get("/api", (req, res) => {
-  res.json({ message: "Welcome to the /api/recipes or /api/users" });
-});
+// server.get("/api", (req, res) => {
+//   res.json({ message: "Welcome to the /api/recipes or /api/users" });
+// });
 
 server.use((err, req, res, next) => {
   res.status(500).json({
