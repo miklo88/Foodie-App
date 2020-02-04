@@ -5,7 +5,7 @@ const express = require("express");
 const server = express();
 
 //  AUTH RECIPE USER ROUTERS
-const recipesRouter = require("../recipes/recipes-router.js");
+const recipesRouter = require("../api/recipes/recipes-router");
 
 server.use(express.json());
 

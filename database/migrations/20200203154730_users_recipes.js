@@ -35,6 +35,7 @@ exports.up = async function(knex) {
       .onDelete("CASCADE")
       .onUpdate("CASCADE");
   });
+
   await knex.schema.createTable("users_recipes", table => {
     table
       .integer("user_id")
