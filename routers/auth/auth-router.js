@@ -7,26 +7,35 @@ const db = require("../../database/dbConfig");
 
 // READ USERS
 router.get("/users", async (req, res, next) => {
-  res
-    .status(200)
-    .json({ message: "users auth endpoint GET reached", operation: "GET" });
+  console.log(req.query);
+  res.status(200).json(response);
+  // .json({ message: "users auth endpoint GET reached", operation: "GET" });
 });
 
 // CREATE USER
+let nextUser = 4;
 router.post("/users/:id", async (req, res, next) => {
-  const userInfo = req.body;
+  const user = req.body;
+  user.id = nextUser++;
 
-  res.status(200).json({ message: "success POST message", operation: "POST" });
+  users.push(user);
+
+  //   res.status(200).json({ message: "success POST message", operation: "POST" });
+  res.status(200).json(users);
 });
 
 // UPDATE USER
 router.put("/users", async (req, res, next) => {
   res.status(200).json({ message: "success PUT message", operation: "PUT" });
 });
+// // UPDATE USER ID
+// router.put("/users", async (req, res, next) => {
+
+// })
 
 // DELETE USER
 router.delete("/users/:id", async (req, res, next) => {
-  const { id } = req.params;
+  const id = req.params.id;
 
   db.remove("id")
     .then(deleted => {
