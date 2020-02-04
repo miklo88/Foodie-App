@@ -5,9 +5,9 @@ const express = require("express");
 const server = express();
 
 // USER ROUTER
-const usersRouter = require("../routers/users/users-router");
+const usersRouter = require("../routers/users-router");
 // RECIPES ROUTER
-const recipesRouter = require("../routers/recipes/recipes-router");
+const recipesRouter = require("../routers/recipes-router");
 // AUTH ROUTER
 // const authRouther = require("../routers/auth/auth-router");
 

@@ -1,16 +1,16 @@
 const bcrypt = require("bcryptjs");
 const express = require("express");
 const jwt = require("jsonwebtoken");
-const restricted = require("../");
-const usersModel = require("../../database/helper_models/user-model");
+// const restricted = require("../");
+// const usersModel = require("../../database/helper_modules/users-module");
 const secrets = require("../../config/secrets");
 
 const router = express.Router();
 
 router.post("/login", (req, res) => {
-  let { username, password } = req.body;
+  let { email, password } = req.body;
 
-  Users.findBy({ username })
+  Users.findBy({ email })
     .first()
     .then(user => {
       if (user && bcrypt.compareSync(password, user.password)) {
@@ -19,7 +19,7 @@ router.post("/login", (req, res) => {
         // the server needs to return the token to the client
         // this doesn't happen automatically like it happens with cookies
         res.status(200).json({
-          message: `Welcome ${user.username}!, have a token...`,
+          message: `Welcome ${user.firstName}!, have a token...`,
           token // attach the token as part of the response
         });
       } else {
