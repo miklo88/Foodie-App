@@ -1,5 +1,3 @@
-// const knex = require("knex")
-// const config = require("../knexfile.js")
 const bcrypt = require("bcryptjs");
 const db = require("../../dbConfig");
 
@@ -34,7 +32,7 @@ function findById(id) {
     .where({ id })
     .first("id", "email");
 }
-
+// update PUT
 // function update(changes, id) {}
-
-// function remove(id) {}
+// delete DELETE
+// function delete(id) {}
