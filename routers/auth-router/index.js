@@ -14,7 +14,7 @@ router.post("/register", async (req, res, next) => {
 
     res.status(201).json(saved);
   } catch (err) {
-    next(err);
+    res.status(404).json({ message: "cannot register" });
   }
 });
 
