@@ -4,26 +4,25 @@ const express = require("express");
 // EXPRESS MIDDLEWARE SERVER
 const server = express();
 
-//  AUTH RECIPE USER ROUTERS
-// const userRouter = require("../routers/auth/auth-router");
+// USER ROUTER
 const usersRouter = require("../routers/users/users-router");
+// RECIPES ROUTER
 const recipesRouter = require("../routers/recipes/recipes-router");
+// AUTH ROUTER
+// const authRouther = require("../routers/auth/auth-router");
 
 server.use(express.json());
 
-// ROUTERS BEING UTILIZED FROM IMPORTS.
+//  USER ROUTER
 server.use("/users", usersRouter);
+//  RECIPES ROUTER
 server.use("/recipes", recipesRouter);
-
-// server api GET
-// server.get("/", async (req, res) => {
-//   res.send("hola and welcome to root API!");
-// });
-
-// route for /api/recipes or /api/users paths
-// server.get("/api", (req, res) => {
-//   res.json({ message: "Welcome to the /api/recipes or /api/users" });
-// });
+// AUTH ROUTER
+// server.use("/auth", authRouther);
+// ROOT ROUTER
+server.get("/", async (req, res) => {
+  res.status(200).json({ message: "homepage api get of foodie/chef blog." });
+});
 
 server.use((err, req, res, next) => {
   console.log("Error:", err);

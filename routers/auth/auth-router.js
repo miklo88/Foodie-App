@@ -1,53 +1,49 @@
-// const express = require("express");
+const bcrypt = require("bcryptjs");
+const express = require("express");
+const jwt = require("jsonwebtoken");
+const restricted = require("../");
+const usersModel = require("../../database/helper_models/user-model");
+const secrets = require("../../config/secrets");
 
-// const router = express.Router();
+const router = express.Router();
 
-// // database config file
-// const db = require("../../database/dbConfig");
+router.post("/login", (req, res) => {
+  let { username, password } = req.body;
 
-// // READ USERS
-// router.get("/users", async (req, res, next) => {
-//   console.log(req.query);
-//   res.status(200).json(response);
-//   // .json({ message: "users auth endpoint GET reached", operation: "GET" });
-// });
+  Users.findBy({ username })
+    .first()
+    .then(user => {
+      if (user && bcrypt.compareSync(password, user.password)) {
+        const token = generateToken(user); // new line
 
-// // CREATE USER
-// let nextUser = 4;
-// router.post("/users/:id", async (req, res, next) => {
-//   const user = req.body;
-//   user.id = nextUser++;
+        // the server needs to return the token to the client
+        // this doesn't happen automatically like it happens with cookies
+        res.status(200).json({
+          message: `Welcome ${user.username}!, have a token...`,
+          token // attach the token as part of the response
+        });
+      } else {
+        res.status(401).json({ message: "Invalid Credentials" });
+      }
+    })
+    .catch(error => {
+      res.status(500).json(error);
+    });
+});
 
-//   users.push(user);
+function generateToken(user) {
+  const payload = {
+    subject: user.id, // sub in payload is what the token is about
+    username: user.username
+    // ...otherData
+  };
 
-//   //   res.status(200).json({ message: "success POST message", operation: "POST" });
-//   res.status(200).json(users);
-// });
+  const options = {
+    expiresIn: "1d" // show other available options in the library's documentation
+  };
 
-// // UPDATE USER
-// router.put("/users", async (req, res, next) => {
-//   res.status(200).json({ message: "success PUT message", operation: "PUT" });
-// });
-// // // UPDATE USER ID
-// // router.put("/users", async (req, res, next) => {
+  // extract the secret away so it can be required and used where needed
+  return jwt.sign(payload, secrets.jwtSecret, options); // this method is synchronous
+}
 
-// // })
-
-// // DELETE USER
-// router.delete("/users/:id", async (req, res, next) => {
-//   const id = req.params.id;
-
-//   db.remove("id")
-//     .then(deleted => {
-//       if (deleted) {
-//         res.status(204).end();
-//       } else {
-//         res.status(404).json({ message: "id not found", operation: "DELETE" });
-//       }
-//     })
-//     .catch(err => {
-//       res.status(500).json({ message: "error", err });
-//     });
-// });
-
-// module.exports = router;
+module.exports = router;

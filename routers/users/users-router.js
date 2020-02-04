@@ -14,7 +14,7 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.get("/users/:id", async (req, res, next) => {
+router.get("/:id", async (req, res, next) => {
   try {
     res.status(200).json({ message: "now to the foodie users/:id endpoint" });
   } catch (error) {
