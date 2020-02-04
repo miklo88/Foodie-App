@@ -5,19 +5,24 @@ const express = require("express");
 const server = express();
 
 //  AUTH RECIPE USER ROUTERS
-// const userRouter = require("../routers/users/users-router")
+const userRouter = require("../routers/auth/auth-router");
 const recipesRouter = require("../routers/recipes/recipes-router");
 
 server.use(express.json());
 
 // ROUTERS BEING UTILIZED FROM IMPORTS.
-server.use("/recipes", recipesRouter);
+server.use("/api/users", userRouter);
+server.use("/api/recipes", recipesRouter);
 
 // server api GET
 server.get("/", async (req, res) => {
-  res.send("hola and welcome to carls api!");
+  res.send("hola and welcome to root API!");
 });
-// sneak JWT Token on line 14. pushing down res.send message.
+
+// route for /api/recipes or /api/users paths
+server.get("/api", (req, res) => {
+  res.json({ message: "Welcome to the /api/recipes or /api/users" });
+});
 
 server.use((err, req, res, next) => {
   res.status(500).json({

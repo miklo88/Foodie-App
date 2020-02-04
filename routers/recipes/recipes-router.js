@@ -4,17 +4,7 @@ const express = require("express");
 const router = express.Router();
 
 const db = require("../../database/dbConfig");
-
-router.get("/recipes", (req, res) => {
-  db.find()
-    .then(recipes => {
-      res.status(200).json(recipes);
-    })
-    .catch(err => {
-      res.status(500).json({ message: error, err });
-    });
-});
-
+// READ
 router.get("/api/instructions", async (req, res, next) => {
   try {
     // get all instructiond from the database
@@ -23,8 +13,8 @@ router.get("/api/instructions", async (req, res, next) => {
     next(err);
   }
 });
-
-router.get("/recipes", async (req, res, next) => {
+// READ
+router.get("/api/recipes", async (req, res, next) => {
   try {
     // get all recipes from the database
     // include instuctions
@@ -42,7 +32,8 @@ router.get("/recipes", async (req, res, next) => {
     next(err);
   }
 });
-
+// PUT UPDATE
+// CREATE
 router.post("/api/recipes", async (req, res, next) => {
   try {
     // create recipes
@@ -57,7 +48,7 @@ router.post("/api/recipes", async (req, res, next) => {
     next(err);
   }
 });
-
+// DELETE
 router.delete("/api/instructions/:id", async (req, res, next) => {
   try {
     // remove instructions
