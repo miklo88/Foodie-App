@@ -1,19 +1,30 @@
 const express = require("express");
 
+// creating a new recipes route
 const router = express.Router();
 
-const db = require("../database/dbConfig");
+const db = require("../../database/dbConfig");
+
+router.get("/recipes", (req, res) => {
+  db.find()
+    .then(recipes => {
+      res.status(200).json(recipes);
+    })
+    .catch(err => {
+      res.status(500).json({ message: error, err });
+    });
+});
 
 router.get("/api/instructions", async (req, res, next) => {
   try {
-    // get all species from the database
+    // get all instructiond from the database
     res.json(await db("instructions"));
   } catch (err) {
     next(err);
   }
 });
 
-router.get("/api/recipes", async (req, res, next) => {
+router.get("/recipes", async (req, res, next) => {
   try {
     // get all recipes from the database
     // include instuctions
