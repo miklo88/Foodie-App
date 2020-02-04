@@ -5,14 +5,15 @@ const express = require("express");
 const server = express();
 
 //  AUTH RECIPE USER ROUTERS
-const userRouter = require("../routers/auth/auth-router");
+// const userRouter = require("../routers/auth/auth-router");
+const usersRouter = require("../routers/users/users-router");
 const recipesRouter = require("../routers/recipes/recipes-router");
 
 server.use(express.json());
 
 // ROUTERS BEING UTILIZED FROM IMPORTS.
-server.use("/api/users", userRouter);
-server.use("/api/recipes", recipesRouter);
+server.use("/users", usersRouter);
+server.use("/recipes", recipesRouter);
 
 // server api GET
 server.get("/", async (req, res) => {
