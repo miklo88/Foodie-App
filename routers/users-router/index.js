@@ -16,22 +16,12 @@ router.get("/", async (req, res, next) => {
 // for re-implementing restricted routes-
 // router.get("/", restricted(), async (req, res, next) => {
 
-// router.get("/", async (req, res, next) => {
-//   try {
-//     res
-//       .status(200)
-//       .json({ message: "youve made it to the foodie users endpoint" });
-//   } catch (error) {
-//     next(error);
-//   }
-// });
-
-// router.get("/:id", async (req, res, next) => {
-//   try {
-//     res.status(200).json({ message: "now to the foodie users/:id endpoint" });
-//   } catch (error) {
-//     res.status(418).json({ message: "no no no no - Dikembe Mutombo" });
-//   }
-// });
+router.get("/:id", async (req, res, next) => {
+  try {
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(418).json({ message: "no no no no - Dikembe Mutombo" });
+  }
+});
 
 module.exports = router;

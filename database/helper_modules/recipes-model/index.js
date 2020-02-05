@@ -1,9 +1,4 @@
-// const knex = require("knex")
-// const config = require("../knexfile.js")
-// const db = knex(config.development)
 const db = require("../../dbConfig");
-
-const router = express.Router();
 
 module.exports = {
   find,
@@ -16,7 +11,7 @@ module.exports = {
   addInstruction
 };
 
-function find(recipe) {
+function find() {
   return db("recipes");
 }
 
