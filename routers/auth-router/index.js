@@ -10,11 +10,19 @@ const router = express.Router();
 // CREATE NEW USER
 router.post("/register", async (req, res, next) => {
   try {
-    const saved = await usersModel.add(req.body);
+    const user = req.body;
 
+    if (!user || !user.email || !user.password) {
+      return res
+        .status(401)
+        .json({ message: "Include a valid email or password" });
+    }
+
+    const saved = await usersModel.add(user);
     res.status(201).json(saved);
   } catch (err) {
-    res.status(404).json({ message: "cannot register" });
+    console.log(err);
+    next(err);
   }
 });
 
@@ -23,30 +31,21 @@ router.post("/login", async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const user = await usersModel.findBy({ email }).first();
+
     const passwordValid = await bcrypt.compare(password, user.password);
 
     if (user && passwordValid) {
-      const token = jwt.sign(
-        {
-          subject: user.id,
-          username: user.firstName
-        },
-        secrets.jwtSecret,
-        {
-          expiresIn: "7d"
-        }
-      );
+      const token = generateToken(user);
+      console.log(token);
 
-      res.status(200).json({
-        message: `Welcome ${user.firstName}!`,
-        token: token
-      });
+      res.status(200).json({ token, message: `Bienvendidos ${user.email}!` });
     } else {
       res.status(401).json({
         message: "Invalid Credentials"
       });
     }
   } catch (err) {
+    console.log(err);
     next(err);
   }
 });
