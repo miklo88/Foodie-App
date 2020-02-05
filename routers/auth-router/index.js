@@ -1,32 +1,32 @@
-const bcrypt = require("bcryptjs");
 const express = require("express");
+const bcrypt = require("bcryptjs");
 const usersModel = require("../../database/helper_modules/users-model");
+const validateMiddleware = require("../../middleware/validateMiddleware");
 const authentication = require("../../database/helper_modules/auth-model");
 const generateToken = require("../../middleware/generateToken");
 
 const router = express.Router();
 
 // CREATE NEW USER
-router.post("/register", async (req, res, next) => {
+router.post("/register", validateMiddleware, async (req, res, next) => {
   try {
     const user = await usersModel.add(req.body);
-    res.status(201).json({ user, message: "welcome new user" });
+    return res.status(201).json({ message: "welcome new created user", user });
   } catch (err) {
-    console.log(err);
     next(err);
   }
 });
 
 // LOGIN
-router.post("/", async (req, res, next) => {
+router.post("/login", async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    // add user error handler
+
     const user = await authentication.userAccount(email).first();
-    // add password error handler
+
     const passwordValid = await bcrypt.compare(password, user.password);
     // if user and password are valid then user gets a token.
-    if (user && passwordValid) {
+    if (!user && !passwordValid) {
       const token = generateToken(user);
 
       res.status(200).json({ message: `Bienvendidos ${user.email}!`, token });
@@ -36,20 +36,8 @@ router.post("/", async (req, res, next) => {
       });
     }
   } catch (err) {
-    console.log(err);
     next(err);
   }
 });
-
-// router.get("/protected", restricted(), async (req, res, next) => {
-//   try {
-//     res.json({
-//       message: "You are authorized",
-//       userId: req.userId
-//     });
-//   } catch (err) {
-//     next(err);
-//   }
-// });
 
 module.exports = router;
