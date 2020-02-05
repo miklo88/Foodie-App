@@ -2,6 +2,7 @@
 const express = require("express");
 const helmet = require("helmet");
 const cors = require("cors");
+const morgan = require("morgan");
 // AUTH ROUTER
 const authRouter = require("../routers/auth-router");
 // USER ROUTER
@@ -14,6 +15,7 @@ const server = express();
 
 server.use(helmet());
 server.use(cors());
+server.use(morgan("short"));
 server.use(express.json());
 
 // AUTH ROUTER

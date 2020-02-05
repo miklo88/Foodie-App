@@ -21,9 +21,7 @@ router.post("/register", validateMiddleware, async (req, res, next) => {
 router.post("/login", async (req, res, next) => {
   try {
     const { email, password } = req.body;
-
-    const user = await authentication.userAccount(email).first();
-
+    const user = await authentication.userAccount(email);
     const passwordValid = await bcrypt.compare(password, user.password);
     // if user and password are valid then user gets a token.
     if (!user && !passwordValid) {

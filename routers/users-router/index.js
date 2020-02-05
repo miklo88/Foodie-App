@@ -18,6 +18,8 @@ router.get("/", async (req, res, next) => {
 
 router.get("/:id", async (req, res, next) => {
   try {
+    const { id } = req.params;
+    const user = await usersModel.findById(id);
     res.status(200).json(user);
   } catch (err) {
     res.status(418).json({ error: "usersRouter err" });
@@ -35,7 +37,7 @@ router.post("/", async (req, res, next) => {
 
 router.delete("/:id", async (req, res, next) => {
   try {
-    await users.remove(req.params.id);
+    await usersModel.remove(req.params.id);
     return res.status(204).json({ message: "user deleted/removed" });
   } catch (err) {
     next(err);
