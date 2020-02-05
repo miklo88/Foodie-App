@@ -3,22 +3,29 @@ const db = require("../../dbConfig");
 
 module.exports = {
   find,
+  findBy,
   findById,
   add,
   remove
 };
 
 function find() {
-  return db("users").select("id", "firstName", "email");
+  return db("users").select("id", "firstName", "lastName", "email");
+}
+function findBy(filter) {
+  return db("users")
+    .where(filter)
+    .select("id", "firstName", "lastName", "email");
 }
 
-async function login(user) {
+async function userAccount(user) {
   const user = await db("users")
     .where({ email })
     .first();
   if (user) {
     return user;
   }
+  return error;
 }
 
 function findById(filter) {

@@ -25,15 +25,15 @@ router.post("/register/users", async (req, res, next) => {
 router.post("/login/users", async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    const user = await usersModel.findBy({ email }).first();
-
+    // add user error handler
+    const user = await usersModel.userAccount(email).first();
+    // add password error handler
     const passwordValid = await bcrypt.compare(password, user.password);
 
     if (user && passwordValid) {
-      const token = generateToken(user);
-      console.log(token);
+      const user = generateToken(user);
 
-      res.status(200).json({ token, message: `Bienvendidos ${user.email}!` });
+      res.status(200).json({ message: `Bienvendidos ${user.email}!` });
     } else {
       res.status(401).json({
         error: "Invalid Credentials"
