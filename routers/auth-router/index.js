@@ -8,7 +8,7 @@ const generateToken = require("../../middleware/generateToken");
 const router = express.Router();
 
 // CREATE NEW USER POST
-router.post("/register", validateMiddleware, async (req, res, next) => {
+router.post("/register", async (req, res, next) => {
   try {
     const user = await usersModel.add(req.body);
     return res.status(201).json({ message: "welcome new created user", user });
@@ -18,7 +18,7 @@ router.post("/register", validateMiddleware, async (req, res, next) => {
 });
 
 // LOGIN POST
-router.post("/login", async (req, res, next) => {
+router.post("/login", validateMiddleware, async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const user = await authenticationModel.userAccount(email);
