@@ -9,16 +9,16 @@ function findBy(filter) {
     .where(filter)
     .select("id", "firstName", "lastName", "email");
 }
-// ADDING USER POST
-async function add(user) {
-  user.password = await bcrypt.hash(user.password, 14);
-  return db("users").insert(user);
-}
 
 function findById(id) {
   return db("users")
     .where({ id })
-    .first("id", "firstName", "lastName");
+    .first("id", "firstName", "lastName", "email");
+}
+// ADDING USER POST
+async function add(user) {
+  user.password = await bcrypt.hash(user.password, 14);
+  return db("users").insert(user);
 }
 
 // update PUT

@@ -7,7 +7,7 @@ async function userAccount(user) {
   if (user) {
     return user;
   }
-  return error;
+  return null;
 }
 
 module.exports = userAccount;

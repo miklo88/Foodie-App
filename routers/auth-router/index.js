@@ -24,7 +24,7 @@ router.post("/login", async (req, res, next) => {
     const user = await authentication.userAccount(email);
     const passwordValid = await bcrypt.compare(password, user.password);
     // if user and password are valid then user gets a token.
-    if (!user && !passwordValid) {
+    if (user && passwordValid) {
       const token = generateToken(user);
 
       res.status(200).json({ message: `Bienvendidos ${user.email}!`, token });
