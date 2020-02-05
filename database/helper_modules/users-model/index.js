@@ -12,6 +12,15 @@ function find() {
   return db("users").select("id", "firstName", "email");
 }
 
+async function login(user) {
+  const user = await db("users")
+    .where({ email })
+    .first();
+  if (user) {
+    return user;
+  }
+}
+
 function findById(filter) {
   return db("users")
     .where(filter)

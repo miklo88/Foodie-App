@@ -1,23 +1,18 @@
 const bcrypt = require("bcryptjs");
 const express = require("express");
-// const jwt = require("jsonwebtoken");
-// const restricted = require("../../middleware/restricted");
 const usersModel = require("../../database/helper_modules/users-model");
-// const secrets = require("../../config/secrets");
 
 const router = express.Router();
 
 // CREATE NEW USER
-router.post("/register", async (req, res, next) => {
+router.post("/register/users", async (req, res, next) => {
   try {
     const user = req.body;
-
-    // if (!user || !user.email || !user.password) {
-    //   return res
-    //     .status(401)
-    //     .json({ message: "Include a valid email or password" });
-    // }
-
+    if (!user || !user.email || !user.password) {
+      return res
+        .status(401)
+        .json({ message: "Include a valid email or password" });
+    }
     const saved = await usersModel.add(user);
     res.status(201).json(saved);
   } catch (err) {
@@ -27,7 +22,7 @@ router.post("/register", async (req, res, next) => {
 });
 
 // LOGIN
-router.post("/login", async (req, res, next) => {
+router.post("/login/users", async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const user = await usersModel.findBy({ email }).first();
