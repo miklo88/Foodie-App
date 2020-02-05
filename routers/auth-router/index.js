@@ -7,7 +7,7 @@ const generateToken = require("../../middleware/generateToken");
 const router = express.Router();
 
 // CREATE NEW USER
-router.post("/register/users", async (req, res, next) => {
+router.post("/register", async (req, res, next) => {
   try {
     const user = req.body;
     if (!user || !user.email || !user.password) {
@@ -24,7 +24,7 @@ router.post("/register/users", async (req, res, next) => {
 });
 
 // LOGIN
-router.post("/login/users", async (req, res, next) => {
+router.post("/login", async (req, res, next) => {
   try {
     const { email, password } = req.body;
     // add user error handler
