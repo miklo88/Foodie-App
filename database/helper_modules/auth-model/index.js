@@ -1,7 +1,7 @@
 const db = require("../../dbConfig");
 
 async function userAccount(user) {
-  const user = await db("users")
+  var user = await db("users")
     .where({ email })
     .first();
   if (user) {
@@ -9,3 +9,5 @@ async function userAccount(user) {
   }
   return error;
 }
+
+module.exports = userAccount;

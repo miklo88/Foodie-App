@@ -1,7 +1,7 @@
 const bcrypt = require("bcryptjs");
 const express = require("express");
 const usersModel = require("../../database/helper_modules/users-model");
-const userAccount = require("../../database/helper_modules/auth-model");
+const Authenticate = require("../../database/helper_modules/auth-model");
 
 const router = express.Router();
 
@@ -27,7 +27,7 @@ router.post("/login/users", async (req, res, next) => {
   try {
     const { email, password } = req.body;
     // add user error handler
-    const user = await usersModel.userAccount(email).first();
+    const user = await Authenticate.userAccount(email).first();
     // add password error handler
     const passwordValid = await bcrypt.compare(password, user.password);
 
