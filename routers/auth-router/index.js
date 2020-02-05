@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 const express = require("express");
 const usersModel = require("../../database/helper_modules/users-model");
+const userAccount = require("../../database/helper_modules/auth-model");
 
 const router = express.Router();
 
