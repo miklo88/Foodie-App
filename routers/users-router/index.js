@@ -1,10 +1,10 @@
 const express = require("express");
-const restricted = require("../../middleware/restricted");
+// const restricted = require("../../middleware/restricted");
 const userModel = require("../../database/helper_modules/users-model");
 
 const router = express.Router();
 
-router.get("/", restricted(), async (req, res, next) => {
+router.get("/", async (req, res, next) => {
   try {
     const users = await userModel.find();
 
@@ -13,6 +13,9 @@ router.get("/", restricted(), async (req, res, next) => {
     next(err);
   }
 });
+// for re-implementing restricted routes-
+// router.get("/", restricted(), async (req, res, next) => {
+
 // router.get("/", async (req, res, next) => {
 //   try {
 //     res
