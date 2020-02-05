@@ -23,9 +23,6 @@ router.post("/login", async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const user = await usersModel.findBy({ email }).first();
-    // since bcrypt hashes generate different results due to the salting,
-    // we rely on the magic internals to compare hashes (rather than doing
-    // it manulally by re-hashing and comparing)
     const passwordValid = await bcrypt.compare(password, user.password);
 
     if (user && passwordValid) {
@@ -34,7 +31,7 @@ router.post("/login", async (req, res, next) => {
           subject: user.id,
           username: user.firstName
         },
-        secrets.jwt,
+        secrets.jwtSecret,
         {
           expiresIn: "7d"
         }
