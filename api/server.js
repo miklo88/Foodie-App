@@ -11,6 +11,7 @@ const recipesRouter = require("../routers/recipes-router");
 
 // EXPRESS MIDDLEWARE SERVER
 const server = express();
+
 server.use(helmet());
 server.use(cors());
 server.use(express.json());
