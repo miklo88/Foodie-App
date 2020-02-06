@@ -7,6 +7,7 @@ const server = require("./api/server");
 const host = process.env.HOST || "localhost";
 const port = process.env.PORT || 9000;
 
+// JEST TEST /// if statement to re-direct the server to be exported and ran in the index.spec.js for testing.
 if (!module.parent) {
   // backend server port/host.
   server.listen(port, () => {
@@ -14,4 +15,5 @@ if (!module.parent) {
   });
 }
 
+// exporting the api as a server to the index.spec.js file.
 module.exports = server;
