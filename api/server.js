@@ -18,16 +18,17 @@ server.use(cors());
 server.use(morgan("short"));
 server.use(express.json());
 
+// ROOT ROUTER
+server.get("/", async (req, res, next) => {
+  res.status(200).json({ message: "homepage api get of foodie/chef blog." });
+});
+
 // AUTH ROUTER
 server.use("/auth", authRouter);
 //  USER ROUTER
 server.use("/users", usersRouter);
 //  RECIPES ROUTER
 server.use("/recipes", recipesRouter);
-// ROOT ROUTER
-server.get("/", async (req, res, next) => {
-  res.status(200).json({ message: "homepage api get of foodie/chef blog." });
-});
 
 server.use((err, req, res, next) => {
   console.log("Error:", err);

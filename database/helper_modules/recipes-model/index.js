@@ -1,16 +1,5 @@
 const db = require("../../dbConfig");
 
-module.exports = {
-  find,
-  findById,
-  add,
-  remove,
-  update,
-  findInstructions,
-  findInstructionById,
-  addInstruction
-};
-
 function find() {
   return db("recipes");
 }
@@ -26,7 +15,7 @@ async function add(recipe) {
 
   return findById(id);
 }
-
+// delete
 function remove(id) {
   return db("recipes")
     .where({ id })
@@ -50,7 +39,7 @@ function findInstructions(instructionId) {
       "m.text",
       "m.sender",
       "h.id as instructionId",
-      "h.recipeTile as recipe"
+      "h.recipeTitle as recipe"
     ]);
 }
 
@@ -66,3 +55,14 @@ async function addInstruction(instructionId, recipe) {
 
   return findInstructionById(instructionId, id);
 }
+
+module.exports = {
+  find,
+  findById,
+  add,
+  remove,
+  update,
+  findInstructions,
+  findInstructionById,
+  addInstruction
+};

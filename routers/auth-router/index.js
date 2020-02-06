@@ -13,6 +13,7 @@ router.post("/register", async (req, res, next) => {
     const user = await usersModel.add(req.body);
     return res.status(201).json({ message: "welcome new created user", user });
   } catch (err) {
+    console.log(err);
     next(err);
   }
 });
@@ -20,10 +21,11 @@ router.post("/register", async (req, res, next) => {
 // LOGIN POST
 router.post("/login", validateMiddleware, async (req, res, next) => {
   try {
-    const { email, password } = req.body;
+    let { email, password } = req.body;
     const user = await authenticationModel.userAccount(email);
     const passwordValid = await bcrypt.compare(password, user.password);
     // if user and password are valid then user gets a token.
+    console.log(passwordValid, user);
     if (user && passwordValid) {
       const token = generateToken(user);
 
@@ -34,6 +36,7 @@ router.post("/login", validateMiddleware, async (req, res, next) => {
       });
     }
   } catch (err) {
+    console.log(err);
     next(err);
   }
 });
