@@ -7,7 +7,11 @@ const server = require("./api/server");
 const host = process.env.HOST || "localhost";
 const port = process.env.PORT || 9000;
 
-// backend server port/host.
-server.listen(port, () => {
-  console.log(`\n*** Listening on http://${host}:${port} ***\n`);
-});
+if (!module.parent) {
+  // backend server port/host.
+  server.listen(port, () => {
+    console.log(`\n*** Listening on http://${host}:${port} ***\n`);
+  });
+}
+
+module.exports = server;

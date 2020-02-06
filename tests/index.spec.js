@@ -1,5 +1,8 @@
-// placeholder test to make sure env is good to go.
-test("a placeholder test", async () => {
-  expect(2 + 6).toBe(8);
+// actual integration test SUPERTEST library for endpoints.
+const supertest = require("supertest");
+// server is the port on index.js
+const server = require("../index");
+
+test("root route. welcome route", async () => {
+  const rest = await supertest(server).get("/");
 });
-// actual test
