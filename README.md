@@ -1,8 +1,19 @@
-node.js version Chefs/Foodie Blog. A database where Foodie/Chef users can upload images of their favorite recipes while having the customization down to the ingredients in said recipes.
+Chefs/Foodie Blog. A home where Foodie/Chef users can upload images of their favorite recipes while having the customization of editing and posting them down to the ingredients in said recipes.
 
-'https://chefs-view.herokuapp.com/' = homepage endpoint
-'https://chefs-view.herokuapp.com/register' = create new user WILL ERROR 404 NOT FOUND
-'https://chefs-view.herokuapp.com/users' = login users endpoint // WILL ERROR 401 NOT AUTHORIZED
+As a user you can add/update/edit/delete recipes
+Users can also login/sign-up"register"/update and delete their accounts.
+
+'https://chefs-view.herokuapp.com/' = homepage endpoint welcome message
+'https://chefs-view.herokuapp.com/auth/register' = url register new user POST
+{
+"firstName":"Tom"
+"lastName":"Brady"
+"email":"email.com",
+"password":"testpassword"
+}
+'https://chefs-view.herokuapp.com//auth/login' = user login authentication POST
+{
+"email":"email.com",
+"password":"testpassword"
+}
 'https://chefs-view.herokuapp.com/recipes' = recipes endpoint
-
-no data from db yet, just JSON message key value pairs.

@@ -8,9 +8,9 @@
 //   await db.seed.run();
 // });
 
-// const testUser = { username: "test", password: "testpassword" };
+// const testUser = { email: "email.com", password: "testpassword" };
 
-// const existingUser = { username: "testUser", password: "testpassword" };
+// const existingUser = { email: "email.com", password: "testpassword" };
 
 // describe("auth-router", () => {
 //   describe("POST /register endpoint", () => {
@@ -33,14 +33,14 @@
 //     it("return a status 200", async () => {
 //       const res = await supertest(server)
 //         .post("/login")
-//         .send(existingUser);
+//         .send(user);
 //       expect(res.status).toBe(401);
 //     });
 
 //     it("return a body of type JSON", async () => {
 //       const res = await supertest(server)
 //         .post("/login")
-//         .send(existingUser);
+//         .send(user);
 //       expect(res.type).toBe("application/json");
 //     });
 //   });
