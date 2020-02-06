@@ -31,18 +31,26 @@ router.get("/:id", async (req, res, next) => {
 router.post("/", async (req, res, next) => {
   try {
     const [id] = await db("users").insert(req.body);
-    const newChef = await db("users")
+    const newUser = await db("users")
       .where("id", id)
       .first();
-    return res.status(201).json(newChef);
+    return res.status(201).json(newUser);
   } catch (err) {
     next(err);
   }
 });
 
+router.put("/", async (req, res, next) => {
+  try {
+    return res.status(200).json(user);
+  } catch (err) {
+    return res.status(500).json({ error: "error on put request muchacho." });
+  }
+});
+
 router.delete("/:id", async (req, res, next) => {
   try {
-    await usersModel.remove(req.params.id);
+    await usersModel.delete(req.params.id);
     return res.status(204).json({ message: "user deleted/removed" });
   } catch (err) {
     res.status(418).json({ error: "didnt delete but youre at your endpoint" });
