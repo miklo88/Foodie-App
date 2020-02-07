@@ -3,8 +3,8 @@ const express = require("express");
 const recipeModel = require("../../database/helper_modules/recipes-model");
 
 const router = express.Router();
-// const db = require("../../database/dbConfig");
 
+// GET RECIPE
 router.get("/", async (req, res, next) => {
   try {
     const recipes = await recipeModel.find();
@@ -14,7 +14,7 @@ router.get("/", async (req, res, next) => {
     next(error);
   }
 });
-
+// GET RECIPE ID
 router.get("/:id", async (req, res, next) => {
   try {
     res
@@ -25,4 +25,31 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
+// ADD RECIPE
+router.post("/:id", async (req, res, next) => {
+  try {
+    res.status(200).json({ message: "route endpoint working!" });
+  } catch (err) {
+    return res.status(500).json({ error: "Error" });
+    //  next(err)
+  }
+});
+// changes // edit
+router.put("/", async (req, res, next) => {
+  try {
+    res.status(200).json({ message: "route endpoint PUT working!" });
+  } catch (err) {
+    return res.status(500).json({ error: "Error" });
+    //  next(err)
+  }
+});
+// DELETE
+router.delete("/", async (req, res, next) => {
+  try {
+    res.status(200).json({ message: "route endpoint DELETE working!" });
+  } catch (err) {
+    return res.status(500).json({ error: "Error" });
+    //  next(err)
+  }
+});
 module.exports = router;

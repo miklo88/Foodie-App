@@ -3,7 +3,7 @@ const express = require("express");
 const userModel = require("../../database/helper_modules/users-model");
 
 const router = express.Router();
-
+// GET USER
 router.get("/", async (req, res, next) => {
   try {
     const users = await userModel.find();
@@ -14,20 +14,18 @@ router.get("/", async (req, res, next) => {
 });
 // for re-implementing restricted routes-
 // router.get("/", restricted(), async (req, res, next) => {
-
+//  GET USER ID
 router.get("/:id", async (req, res, next) => {
   try {
     const [id] = await userModel
-      .findById(id)
+      .findById(req.params.id)
       .where("id", id)
       .first();
   } catch (err) {
-    return res
-      .status(500)
-      .json({ error: "ay dio hit the endpoint. but not close enough" });
+    next(err);
   }
 });
-
+// ADD NEW USER / REGISTER / CREATE
 router.post("/", async (req, res, next) => {
   try {
     const [id] = await db("users").insert(req.body);
@@ -41,7 +39,7 @@ router.post("/", async (req, res, next) => {
   console.log(newUser);
 });
 
-// changes
+// changes // EDIT
 router.put("/:id", async (req, res, next) => {
   try {
     const [id] = await db("users")
@@ -59,7 +57,7 @@ router.put("/:id", async (req, res, next) => {
     return res.status(500).json({ error: "error on put request muchacho." });
   }
 });
-
+// DELETE
 router.delete("/:id", async (req, res, next) => {
   try {
     await usersModel.remove(req.params.id);
