@@ -4,17 +4,17 @@ const db = require("../../dbConfig");
 function find() {
   return db("users").select("id", "firstName", "lastName", "email");
 }
-function findBy(filter) {
-  return db("users")
-    .where(filter)
-    .select("id", "firstName", "lastName", "email");
-}
-
+// function findBy(filter) {
+//   return db("users")
+//     .where(filter)
+//     .select("id", "firstName", "lastName", "email");
+// }
 function findById(id) {
   return db("users")
     .where({ id })
-    .first("id", "firstName", "lastName", "email");
+    .first();
 }
+
 // ADDING USER POST
 async function add(user) {
   user.password = await bcrypt.hash(user.password, 14);
@@ -38,7 +38,7 @@ function remove(id) {
 module.exports = {
   add,
   find,
-  findBy,
+  // findBy,
   findById,
   update,
   remove

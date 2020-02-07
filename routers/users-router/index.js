@@ -17,14 +17,14 @@ router.get("/", async (req, res, next) => {
 
 router.get("/:id", async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const users = await usersModel.findById(id);
-    res.status(200).json(users);
+    const [id] = await userModel
+      .findById(id)
+      .where("id", id)
+      .first();
   } catch (err) {
-    res
-      .status(418)
-      .json({ error: "didnt get user/id but youre at your endpoint" });
-    // next(err);
+    return res
+      .status(500)
+      .json({ error: "ay dio hit the endpoint. but not close enough" });
   }
 });
 
@@ -38,11 +38,14 @@ router.post("/", async (req, res, next) => {
   } catch (err) {
     next(err);
   }
+  console.log(newUser);
 });
 
-router.put("/", async (req, res, next) => {
+// changes
+router.put("/:id", async (req, res, next) => {
   try {
-    return res.status(200).json(user);
+    await usersModel.update(req.params.id);
+    return res.status(200).json(changes);
   } catch (err) {
     return res.status(500).json({ error: "error on put request muchacho." });
   }
@@ -50,11 +53,10 @@ router.put("/", async (req, res, next) => {
 
 router.delete("/:id", async (req, res, next) => {
   try {
-    await usersModel.delete(req.params.id);
+    await usersModel.remove(req.params.id);
     return res.status(204).json({ message: "user deleted/removed" });
   } catch (err) {
-    res.status(418).json({ error: "didnt delete but youre at your endpoint" });
-    // next(err);
+    next(err);
   }
 });
 
