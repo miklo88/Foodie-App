@@ -8,7 +8,6 @@ const router = express.Router();
 router.get("/", async (req, res, next) => {
   try {
     const recipes = await recipeModel.find();
-
     res.status(200).json(recipes);
   } catch (error) {
     next(error);
@@ -26,13 +25,17 @@ router.get("/:id", async (req, res, next) => {
 });
 
 // ADD RECIPE
-router.post("/:id", async (req, res, next) => {
+router.post("/", async (req, res, next) => {
   try {
-    res.status(200).json({ message: "route endpoint working!" });
+    const [id] = await db("recipes").insert(req.body);
+    const newRecipe = await db("recipes")
+      .where("id", id)
+      .first();
+    return res.status(201).json(newRecipe);
   } catch (err) {
-    return res.status(500).json({ error: "Error" });
-    //  next(err)
+    next(err);
   }
+  console.log(newRecipe);
 });
 // changes // edit
 router.put("/", async (req, res, next) => {
