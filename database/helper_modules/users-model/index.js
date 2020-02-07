@@ -4,11 +4,7 @@ const db = require("../../dbConfig");
 function find() {
   return db("users").select("id", "firstName", "lastName", "email");
 }
-// function findBy(filter) {
-//   return db("users")
-//     .where(filter)
-//     .select("id", "firstName", "lastName", "email");
-// }
+
 function findById(id) {
   return db("users")
     .where({ id })
@@ -38,7 +34,6 @@ function remove(id) {
 module.exports = {
   add,
   find,
-  // findBy,
   findById,
   update,
   remove

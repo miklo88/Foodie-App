@@ -34,31 +34,16 @@ exports.up = async function(knex) {
       .inTable("instructions")
       .onDelete("CASCADE")
       .onUpdate("CASCADE");
-  });
-
-  await knex.schema.createTable("users_recipes", table => {
     table
-      .integer("user_id")
+      .integer("users_id")
       .references("id")
       .inTable("users")
       .onDelete("CASCADE")
-      .onUpdate("CASCADE")
-      .notNullable();
-
-    table
-      .integer("recipe_id")
-      .references("id")
-      .inTable("recipes")
-      .onDelete("CASCADE")
-      .onUpdate("CASCADE")
-      .notNullable();
-
-    table.primary(["user_id", "recipe_id"]);
+      .onUpdate("CASCADE");
   });
 };
 
 exports.down = async function(knex) {
-  await knex.schema.dropTableIfExists("users_recipes");
   await knex.schema.dropTableIfExists("recipes");
   await knex.schema.dropTableIfExists("instructions");
   await knex.schema.dropTableIfExists("users");
