@@ -44,8 +44,17 @@ router.post("/", async (req, res, next) => {
 // changes
 router.put("/:id", async (req, res, next) => {
   try {
-    await usersModel.update(req.params.id);
-    return res.status(200).json(changes);
+    const [id] = await db("users")
+      .update(req.params.id, req.body)
+      .then(user => {
+        if (user) {
+          return res.status(200).json(user);
+        } else {
+          return res
+            .status(404)
+            .json({ message: "couldnt update user, couldnt find user." });
+        }
+      });
   } catch (err) {
     return res.status(500).json({ error: "error on put request muchacho." });
   }
