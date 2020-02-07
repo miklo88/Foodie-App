@@ -4,9 +4,9 @@
 
 // describe("recipes-router", () => {
 //   describe("/recipes endpoint", () => {
-//     it("return a status 401", async () => {
+//     it("return a status 200", async () => {
 //       const res = await supertest(server).get("/recipes");
-//       expect(res.status).toBe(401);
+//       expect(res.status).toBe(200);
 //     });
 
 //     it("return a body of type JSON", async () => {
