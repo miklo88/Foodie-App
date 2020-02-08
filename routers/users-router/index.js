@@ -17,10 +17,11 @@ router.get("/", async (req, res, next) => {
 //  GET USER ID
 router.get("/:id", async (req, res, next) => {
   try {
-    const [id] = await userModel
+    const userId = await userModel
       .findById(req.params.id)
       .where("id", id)
       .first();
+    return res.status(200).json(userId);
   } catch (err) {
     next(err);
   }

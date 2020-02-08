@@ -1,5 +1,5 @@
 const express = require("express");
-
+// const restricted = require("../../middleware/restricted");
 const recipeModel = require("../../database/helper_modules/recipes-model");
 
 const router = express.Router();
@@ -16,14 +16,24 @@ router.get("/", async (req, res, next) => {
 // GET RECIPE ID
 router.get("/:id", async (req, res, next) => {
   try {
-    res
-      .status(200)
-      .json({ message: "looking for an individual recipe? you've found one" });
-  } catch (error) {
-    res.status(418).json({ message: "no no no no - Dikembe Mutombo" });
+    const recipeId = await recipeModel
+      .findById(req.params.id)
+      .where("id", id)
+      .first();
+    return res.status(200).json(recipeId);
+  } catch (err) {
+    next(err);
   }
 });
+// res
+//   .status(200)
+//   .json({ message: "looking for an individual recipe? you've found the route" });
+// } catch (error) {
+//   res.status(418).json({ message: "GET ID ERROR" });
+// }
 
+// for re-implementing restricted routes-
+// router.get("/", restricted(), async (req, res, next) => {
 // ADD RECIPE
 router.post("/", async (req, res, next) => {
   try {

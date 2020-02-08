@@ -15,8 +15,4 @@ function generateToken(user) {
 
 module.exports = generateToken;
 
-// const email = req.body.email
-// const user = { email: email }
-// const accerssToken = jwt.sign(user, process.env.JWT_SECRET)
-
-// return jwt.sign(payload, secrets.jwtSecret, options);
+// purpose of generating a token as a module is if application grows in size and needs an admin etc
