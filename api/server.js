@@ -1,3 +1,5 @@
+// moving to another repository.
+
 // EXPRESS MIDDLWARE
 const express = require("express");
 const helmet = require("helmet");
@@ -22,7 +24,10 @@ server.use(express.json());
 server.get("/", async (req, res, next) => {
   res.status(200).json({ message: "homepage api get of foodie/chef blog." });
 });
-
+// pull root and this in another folder /api or push rest of file to index.js // expansion purposes
+// router.get("/api", (req, res) => {
+//   res.json({ message: "Welcome to the Hubs API" })
+// })
 // AUTH ROUTER
 server.use("/auth", authRouter);
 //  USER ROUTER

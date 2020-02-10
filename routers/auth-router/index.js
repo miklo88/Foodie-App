@@ -1,7 +1,7 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const usersModel = require("../../database/helper_modules/users-model");
-const validateMiddleware = require("../../middleware/validateMiddleware");
+const { validateMiddleware } = require("../../middleware/validate");
 const authenticationModel = require("../../database/helper_modules/auth-model");
 const generateToken = require("../../middleware/generateToken");
 
