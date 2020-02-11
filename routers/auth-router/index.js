@@ -11,7 +11,7 @@ const router = express.Router();
 router.post("/register", async (req, res, next) => {
   try {
     const user = await usersModel.add(req.body);
-    return res.status(201).json({ message: "welcome new created user", user });
+    return res.status(201).json({ message: "welcome!", user });
   } catch (err) {
     console.log(err);
     next(err);

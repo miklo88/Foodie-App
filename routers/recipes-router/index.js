@@ -16,11 +16,10 @@ router.get("/", async (req, res, next) => {
 // GET RECIPE ID
 router.get("/:id", async (req, res, next) => {
   try {
-    const recipeId = await recipeModel
-      .findById(req.params.id)
-      .where("id", id)
-      .first();
-    return res.status(200).json(recipeId);
+    const { id } = req.params;
+    const recipes = await recipeModel.findById(id);
+
+    return res.status(200).json(recipes);
   } catch (err) {
     next(err);
   }
