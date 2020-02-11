@@ -2,7 +2,7 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const usersModel = require("../../database/helper_modules/users-model");
 const { validateMiddleware } = require("../../middleware/validate");
-const authenticationModel = require("../../database/helper_modules/auth-model");
+const authModel = require("../../database/helper_modules/auth-model");
 const generateToken = require("../../middleware/generateToken");
 
 const router = express.Router();
@@ -22,7 +22,7 @@ router.post("/register", async (req, res, next) => {
 router.post("/login", validateMiddleware, async (req, res, next) => {
   try {
     let { email, password } = req.body;
-    const user = await authenticationModel.userAccount(email);
+    const user = await authModel.userAccount(email);
     const passwordValid = await bcrypt.compare(password, user.password);
     // if user and password are valid then user gets a token.
     console.log(passwordValid, user);
