@@ -1,7 +1,8 @@
-module.exports = () => (req, res) => {
+module.exports = () => (req, res, next) => {
   console.log(
-    `${req.ip} - ${req.protocol} ${req.method} - ${req.url} - ${req.get(
+    `${req.ip} - ${req.protocol} - ${req.method} - ${req.url} - ${req.get(
       "User-Agent"
-    )} `
+    )}`
   );
+  next();
 };
