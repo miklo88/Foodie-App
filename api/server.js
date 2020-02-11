@@ -3,8 +3,8 @@
 // EXPRESS MIDDLWARE
 const express = require("express");
 const helmet = require("helmet");
-const cors = require("cors");
 const morgan = require("morgan");
+const cors = require("cors");
 
 const apiRouter = require("../routers/api-router/router");
 // AUTH ROUTER
@@ -18,8 +18,8 @@ const recipesRouter = require("../routers/recipes-router");
 const server = express();
 
 server.use(helmet());
-server.use(cors());
 server.use(morgan("short"));
+server.use(cors());
 server.use(express.json());
 
 // ROOT ROUTER
