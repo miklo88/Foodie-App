@@ -18,10 +18,12 @@ async function add(user) {
 }
 
 // update PUT
-function update(changes, id) {
-  return db("users")
+async function update(id, changes) {
+  await db("users")
     .where({ id })
     .update(changes);
+
+  return findById(id);
 }
 
 // delete DELETE
