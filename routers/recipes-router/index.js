@@ -21,16 +21,10 @@ router.get("/:id", async (req, res, next) => {
 
     return res.status(200).json(recipes);
   } catch (err) {
+    res.status(418).json({ message: "GET ID ERROR" });
     next(err);
   }
 });
-// res
-//   .status(200)
-//   .json({ message: "looking for an individual recipe? you've found the route" });
-// } catch (error) {
-//   res.status(418).json({ message: "GET ID ERROR" });
-// }
-
 // for re-implementing restricted routes-
 // router.get("/", restricted(), async (req, res, next) => {
 // ADD RECIPE
