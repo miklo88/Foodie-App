@@ -9,6 +9,16 @@ function validateMiddleware(req, res, next) {
   }
 }
 
+// function validateUserId() {
+//   return (req, res, next) => {
+//     users.findById(req.params.id)
+//       .where(id).first();
+//       next()
+//   } else {
+//     res.status(404).json({ message: "User not found"})
+//   }
+// }
+
 // validating recipes post - inc , instructions, userId in req.body
 function validateRecipeData(req, res, next) {
   const { recipeTitle, mealType, ingredients } = req.body;
