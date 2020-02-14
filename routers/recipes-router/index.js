@@ -1,7 +1,7 @@
 const express = require("express");
 // const restricted = require("../../middleware/restricted");
 const recipeModel = require("../../database/helper_modules/recipes-model");
-
+const validateRecipeData = require("../../middleware/validate");
 const router = express.Router();
 
 // GET RECIPE
@@ -19,9 +19,8 @@ router.get("/:id", async (req, res, next) => {
     const { id } = req.params;
     const recipes = await recipeModel.findById(id);
 
-    return res.status(200).json(recipes);
+    res.status(200).json(recipes);
   } catch (err) {
-    res.status(418).json({ message: "GET ID ERROR" });
     next(err);
   }
 });
@@ -41,11 +40,11 @@ router.post("/", async (req, res, next) => {
   console.log(newRecipe);
 });
 // changes // edit
-router.put("/", async (req, res, next) => {
+router.put("/", validateRecipeData(), async (req, res, next) => {
   try {
-    res.status(200).json({ message: "route endpoint PUT working!" });
+    res.status(200).json({ message: "yum!" });
   } catch (err) {
-    return res.status(500).json({ error: "Error" });
+    return res.status(401).json({ error: "Error" });
     //  next(err)
   }
 });
